@@ -7,7 +7,7 @@
             <hr>
             <div class="py-5">
                 {{-- <p class="text-base break-all font-light leading-relaxed mt-0 mb-4 text-gray-800"> --}}
-                    <x-markdown>
+                    <x-markdown class="break-all">
                         {{ $post->content }}
                     </x-markdown>
                 {{-- </p> --}}
