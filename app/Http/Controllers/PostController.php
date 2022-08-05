@@ -14,7 +14,7 @@ class PostController extends Controller
             'auth:sanctum',
             config('jetstream.auth_session'),
             'verified',
-        ])->except(['index', 'show']);
+        ])->except(['index', 'show', 'showUserPosts']);
     }
 
     /**
@@ -25,7 +25,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->latest()->paginate(15);
-        return view('posts.index', compact('posts'));
+        return view('posts.index', [
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -62,7 +64,10 @@ class PostController extends Controller
      */
     public function show(User $user, Post $post)
     {
-        return view('posts.show', compact('post', 'user'));
+        return view('posts.show', [
+            'post' => $post,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -75,7 +80,9 @@ class PostController extends Controller
     {
         $this->authorize('owner', $post);
 
-        return view('posts.edit', compact('post'));
+        return view('posts.edit', [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -110,5 +117,20 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index');
+    }
+
+    /**
+     * Display the all user posts.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function showUserPosts(User $user)
+    {
+        $posts = $user->posts()->latest()->paginate(15);
+        return view('posts.user.show', [
+            'posts' => $posts->load('user'),
+            'user' => $user,
+        ]);
     }
 }
