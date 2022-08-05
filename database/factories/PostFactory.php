@@ -24,5 +24,7 @@ class PostFactory extends Factory
         ];
 
         $data['slug'] = $data['title'];
+
+        return $data;
     }
 }

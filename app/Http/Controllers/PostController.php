@@ -14,7 +14,7 @@ class PostController extends Controller
             'auth:sanctum',
             config('jetstream.auth_session'),
             'verified',
-        ])->except(['show']);
+        ])->except(['index', 'show']);
     }
 
     /**
@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->paginate(15);
+        $posts = Post::with('user')->latest()->paginate(15);
         return view('posts.index', compact('posts'));
     }
 
@@ -51,7 +51,7 @@ class PostController extends Controller
         $data['slug'] = $data['title'];
 
         $post = Post::create($data);
-        return redirect()->route('posts.show', $post);
+        return redirect()->route('posts.show', [$post->user->username, $post]);
     }
 
     /**

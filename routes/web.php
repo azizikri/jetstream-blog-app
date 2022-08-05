@@ -26,8 +26,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route:resource('posts', PostController::class);
+
     // Post Routes
-    Route::resource('posts', PostController::class)->except(['index', 'show']);
+    Route::resource('posts', PostController::class)->except(['show']);
     Route::get('/{user:username}/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 });

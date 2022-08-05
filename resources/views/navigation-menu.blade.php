@@ -15,6 +15,10 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+
+                    <x-jet-nav-link href="{{ route('posts.index') }}" :active="request()->routeIs('posts.index')">
+                        {{ __('Post') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
@@ -69,8 +73,10 @@
                     </div>
                 @endif
 
+                <x-link href="{{ route('posts.create') }}" class="m-4 text-white bg-indigo-500 hover:bg-indigo-600">Add new post!</x-link>
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
+
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -139,6 +145,14 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link>
+
+            <x-jet-responsive-nav-link href="{{ route('posts.index') }}" :active="request()->routeIs('posts.index')">
+                {{ __('Posts') }}
+            </x-jet-responsive-nav-link>
+
+            <x-jet-responsive-nav-link href="{{ route('posts.create') }}" :active="request()->routeIs('posts.create')">
+                {{ __('Create new post!') }}
             </x-jet-responsive-nav-link>
         </div>
 
