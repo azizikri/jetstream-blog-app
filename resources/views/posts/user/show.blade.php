@@ -4,7 +4,7 @@
     </div>
 
     <div class="py-5">
-        <div class="max-w-2xl mx-auto sm:px-6 md:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto px-5 sm:px-6 md:px-6 lg:px-8">
             <hr>
             <div class="relative overflow-x-auto py-5">
                 @forelse ($posts as $post)
