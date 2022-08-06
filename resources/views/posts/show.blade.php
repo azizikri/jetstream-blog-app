@@ -6,15 +6,17 @@
                 <small>{{ \Carbon\Carbon::parse($post->updated_at)->format('jS M, Y') }} on <a
                         href="{{ route('posts.user.show', $post->user->username) }}"
                         class="text-blue-600">{{ $post->user->username }}'s blog</a></small>
-                <div>
-                    <a href="{{ route('posts.edit', $post->slug) }}" class="text-blue-600 px-3">Edit</a>
-                    <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600"
-                            onclick="return confirm('Are you sure?')">Delete</button>
-                    </form>
-                </div>
+                @can('owner', $post)
+                    <div>
+                        <a href="{{ route('posts.edit', $post->slug) }}" class="text-blue-600 px-3">Edit</a>
+                        <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600"
+                                onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </div>
+                @endcan
             </div>
             <hr>
             <div class="py-5 break-all">
