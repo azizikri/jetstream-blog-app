@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Post Routes
-Route::resource('posts', PostController::class)->except(['show']);
-Route::get('/posts/{user:username}', [PostController::class, 'showUserPosts'])->name('posts.user.show');
-Route::get('/posts/{user:username}/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+Route::resource('posts', PostController::class)->except(['index', 'show']);
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
+Route::get('/{user:username}/posts', [PostController::class, 'showUserPosts'])->name('posts.user.show');
+Route::get('/{user:username}/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
