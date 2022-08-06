@@ -18,16 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    // Post Routes
-    Route::resource('posts', PostController::class)->except(['show']);
-    Route::get('/{user:username}/{post:slug}', [PostController::class, 'show'])->name('posts.show');
-});
+// Post Routes
+Route::resource('posts', PostController::class)->except(['show']);
+Route::get('/posts/{user:username}', [PostController::class, 'showUserPosts'])->name('posts.user.show');
+Route::get('/posts/{user:username}/{post:slug}', [PostController::class, 'show'])->name('posts.show');
