@@ -127,9 +127,9 @@ class PostController extends Controller
      */
     public function showUserPosts(User $user)
     {
-        $posts = $user->posts()->latest()->paginate(15);
+        $posts = Post::with('user')->whereRelation('user', 'user_id', $user->id)->paginate(15);
         return view('posts.user.show', [
-            'posts' => $posts->load('user'),
+            'posts' => $posts,
             'user' => $user,
         ]);
     }

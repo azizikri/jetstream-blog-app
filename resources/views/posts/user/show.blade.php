@@ -20,6 +20,7 @@
                     <p class="text-center">No posts yet.</p>
                 @endforelse
             </div>
+            {{ $posts->links('vendor.pagination.tailwind') }}
         </div>
     </div>
 </x-app-layout>
